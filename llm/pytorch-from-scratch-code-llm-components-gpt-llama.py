@@ -12,7 +12,7 @@ torch.manual_seed(2024)
 
 # 2 parameters: scale, shift
 class LayerNorm(nn.Module):
-    def __init__(self, dim, eps):
+    def __init__(self, dim, eps=1e-5):
         super().__init__()
         self.eps = eps
         self.scale = nn.Parameter(torch.ones(dim))
@@ -29,7 +29,7 @@ class LayerNorm(nn.Module):
 
 # 1 parameter: scale (no mean shift)
 class RMSNorm(nn.Module):
-    def __init__(self, dim, eps):
+    def __init__(self, dim, eps=1e-5):
         super().__init__()
         self.eps = eps
         self.scale = nn.Parameter(torch.ones(dim))
@@ -400,7 +400,9 @@ class GQARoPE(nn.Module):
         att_mask = torch.triu(torch.ones(seq_len, seq_len), diagonal=1)
         self.register_buffer('att_mask', att_mask)
 
-        self.dropout = nn.Dropout(dropout)
+        self.drop_rate = dropout 
+        if self.drop_rate > 0.0:   
+            self.dropout = nn.Dropout(dropout)
         self.proj = nn.Linear(dim, dim, bias=bias, dtype=dtype)
 
     def forward(self, x):
@@ -437,7 +439,8 @@ class GQARoPE(nn.Module):
         att_mask = self.att_mask.bool()[:seq_len, :seq_len] # Select mask for seq_len & convert to bool
         att.masked_fill_(att_mask, -torch.inf)      
         att = torch.softmax(att / k.shape[-1]**0.5, dim=-1)
-        att = self.dropout(att)
+        if self.drop_rate > 0.0:   
+            att = self.dropout(att)
         
         # Calc context & reshape from (bs, num_heads, seq_len, head_dim) & then to (bs, seq_len, num_heads, head_dim)
         ctx = (att @ v).transpose(1, 2)
@@ -456,7 +459,7 @@ class GQARoPE(nn.Module):
 # dim = 16 # dim of att layer embeddings
 # num_heads = 8
 # num_kv_groups = 2 # i.e. 4 q heads share 1 k,v 
-# gqa_layer = GQARoPE(din, dim, seq_len, 0.1, num_heads, num_kv_groups, theta_base=10000.0)
+# gqa_layer = GQARoPE(din, dim, seq_len, 0.1, num_heads, num_kv_groups, bias=False, dtype=None, rope_base=10000.0, rope_config=None)
 # ctx = gqa_layer(batch_x) 
 # total_params = sum(p.numel() for p in gqa_layer.parameters())
 # print(f"Number of parameters: {total_params:,}")

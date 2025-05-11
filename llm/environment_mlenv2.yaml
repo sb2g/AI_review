@@ -327,4 +327,3 @@ dependencies:
       - wcwidth==0.2.13
       - word2number==1.1
       - zipp==3.19.2
-prefix: /home/sbujimal/miniforge3/envs/mlenv2

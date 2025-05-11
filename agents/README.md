@@ -19,16 +19,21 @@
             - Interact with env: Control devices
             - Communicate: with Users, Agents
         - Tools available to agents can have great impact on the results 
-- Items needed in an agent 
+- Some high level items needed in an agent 
     - Thought 
     - Action 
     - Observation 
     - Tools available
     - Parser to extract tool calls 
-    - System prompt
+    - System prompt to call tools
     - Memory
     - Error logging & Retry mechanism
 - Workflows
+    - ReAct pattern:
+        - Reason about the task
+        - Act using appropriate tools
+        - Observe the results
+        - Repeat as necessary until task is complete
     - Thought, Action, Observation:
         - Thought
             - For e.g. Read the prompt and decide what tool to call with what parameters, or if final answer should be generated.        - 
@@ -73,6 +78,22 @@
 - Pre-determined workfow is not enough. For e.g. Plan a trip based on complex natural language input => Check weather, maps, availability, etc.
 - 
 
+## Trade-off: Control (vs) Freedom
+When designing AI applications, there is a trade-off between control and freedom:
+- Control allows you to ensure predictable behavior and maintain guardrails.
+- Freedom gives AI model to be more room to be creative and tackle unexpected problems.
+
+### Some frameworks for AI agents
+- smolagents
+    - Focus on "Freedom" of execution of agent
+    - Focuses on codeAgent
+    - Can call multiple tools in a single action step, create their own tools, etc. However, this behavior can make them less predictable and less controllable than a regular Agent working with JSON
+- LlamaIndex
+- LangGraph
+    - Focuses on "Controlling" the execution of agent
+    - LangGraph provides the structure you need
+    - Useful if your application involves a series of steps that need to be orchestrated in a specific way, with decisions being made at each junction point
+- CrewAI
 
 ### References:
 - https://huggingface.co/learn/agents-course/unit1/what-are-agents

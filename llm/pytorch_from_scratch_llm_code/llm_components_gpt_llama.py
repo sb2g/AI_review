@@ -1,3 +1,11 @@
+"""
+All critical components of modern LLM (or VLM) architectures
+# References:
+- https://github.com/rasbt/LLMs-from-scratch
+- https://github.com/labmlai/annotated_deep_learning_paper_implementations
+- https://github.com/kimiyoung/transformer-xl/blob/master/pytorch/mem_transformer.py
+"""
+
 import torch
 import torch.nn as nn
 import matplotlib.pyplot as plt

@@ -4,3 +4,7 @@ output_dir
 **/.env
 __pycache__
 **/__pycache__
+data/sms_spam_collection.zip
+data/sms_spam_collection
+data/gutenberg_preprocessed
+data/instruction-data.json

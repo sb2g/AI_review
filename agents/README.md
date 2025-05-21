@@ -1,4 +1,15 @@
-### Agents: 
+# Overview:
+This part of repo goes over what are Agents & their components / workflows. 
+    - It shows a basic agent from scratch in pytorch. 
+    - It then aims to go over the following Agent frameworks:
+        - smolagents
+        - LlamaIndex
+        - LangGraph
+        - CrewAI
+    - Use `environment_mlenv2a.yaml` to define the Conda env to run the code shown here.
+        - `mlenv2a`:  `conda env create -f environment_mlenv2a.yml`
+
+# Overview of Agents: 
 - Use AI model(s) as reasoning engine along with tools to interact with environment and perform a given task 
 - Capabilities:
     - Understand natural language (using AI models) 

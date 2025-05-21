@@ -1,5 +1,5 @@
 # Overview
-This part of the has the reference codes to train / run inference on LLMs (also applicable to VLMs). It shows how to
+- This part of the has the reference codes to train / run inference on LLMs (also applicable to VLMs). It shows how to:
     - Use Huggingface library to train, finetune or run inference on LLMs
     - Use LLM APIs like ChatGPT
     - Use Pytorch to define key components of LLMs/VLMs from scratch. Define models like GPT2 & Llama3.*.  Train them to predict next token & later finetune them for downstream tasks like classification or to follow instructions.

@@ -1,4 +1,4 @@
-name: mlenv2
+name: mlenv2c
 channels:
   - pytorch
   - nvidia
@@ -259,10 +259,12 @@ dependencies:
   - zstandard=0.23.0=py39h623c9ba_0
   - zstd=1.5.6=ha6fb4c9_0
   - pip:
+      - absl-py==2.2.2
       - accelerate==1.5.1
       - annotated-types==0.7.0
       - anyio==4.8.0
       - asttokens==2.4.1
+      - astunparse==1.6.3
       - bitsandbytes==0.45.3
       - comm==0.2.2
       - contourpy==1.3.0
@@ -277,8 +279,13 @@ dependencies:
       - exceptiongroup==1.2.2
       - executing==2.0.1
       - flash-attn==2.7.4.post1
+      - flatbuffers==25.2.10
       - fonttools==4.56.0
+      - gast==0.6.0
+      - google-pasta==0.2.0
+      - grpcio==1.71.0
       - h11==0.14.0
+      - h5py==3.13.0
       - httpcore==1.0.7
       - httpx==0.28.1
       - huggingface-hub==0.29.1
@@ -292,21 +299,28 @@ dependencies:
       - joblib==1.5.0
       - jupyter-client==8.6.2
       - jupyter-core==5.7.2
+      - keras==3.10.0
       - kiwisolver==1.4.7
+      - libclang==18.1.1
+      - markdown==3.8
       - markdown-it-py==3.0.0
       - matplotlib==3.9.4
       - matplotlib-inline==0.1.7
       - mdurl==0.1.2
+      - ml-dtypes==0.5.1
       - more-itertools==10.6.0
+      - namex==0.0.9
       - nest-asyncio==1.6.0
       - openai==1.61.1
       - openpyxl==3.1.5
+      - opt-einsum==3.4.0
+      - optree==0.15.0
       - parso==0.8.4
       - peft==0.14.0
       - pexpect==4.9.0
       - platformdirs==4.2.2
       - prompt-toolkit==3.0.47
-      - protobuf==6.30.1
+      - protobuf==5.29.4
       - psutil==6.0.0
       - ptyprocess==0.7.0
       - pure-eval==0.2.3
@@ -321,7 +335,12 @@ dependencies:
       - scipy==1.13.1
       - sniffio==1.3.1
       - stack-data==0.6.3
+      - tensorboard==2.19.0
+      - tensorboard-data-server==0.7.2
       - tensorboardx==2.6.2.2
+      - tensorflow==2.19.0
+      - tensorflow-io-gcs-filesystem==0.37.1
+      - termcolor==3.1.0
       - threadpoolctl==3.6.0
       - tiktoken==0.9.0
       - tokenizers==0.21.0
@@ -331,5 +350,7 @@ dependencies:
       - trl==0.15.2
       - typeguard==4.4.1
       - wcwidth==0.2.13
+      - werkzeug==3.1.3
       - word2number==1.1
+      - wrapt==1.17.2
       - zipp==3.19.2

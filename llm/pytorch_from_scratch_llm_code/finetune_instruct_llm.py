@@ -15,7 +15,7 @@ from llm_models_gpt_llama import GPT2Model
 from data import create_instruct_llm_dataloaders, format_input
 from train_helpers import calc_loss_batch, calc_loss_loader, plot_values
 from infer_helpers import generate_and_print_sample, generate, text_to_token_ids, token_ids_to_text
-import tqdm
+from tqdm import tqdm
 import json
 from download_models import load_weights_into_gpt, load_gpt2
 
@@ -74,7 +74,7 @@ if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser(description="Finetune a LLM model for instruct LLM")
-    parser.add_argument('--output_dir', type=str, default='../output_dir/model_next_token/',
+    parser.add_argument('--output_dir', type=str, default='../output_dir/model_instruct_llm/',
                         help='Directory where the model checkpoints will be saved')
     parser.add_argument("--debug", default=False, action="store_true",
                         help=("Uses a very small model for debugging purposes"))
@@ -130,10 +130,13 @@ if __name__ == "__main__":
         model = GPT2Model(LLM_CONFIG)
     else:
         model_size = "124M"
-        #settings, params = download_and_load_gpt2(model_size=model_size, models_dir="./output_dir/gpt2")
-        settings, params = load_gpt2(model_size=model_size, models_dir="./output_dir/gpt2")
-        model = GPT2Model(LLM_CONFIG)
-        load_weights_into_gpt(model, params)
+        if 1:  
+            # Load from OpenAI weights
+            #settings, params = download_and_load_gpt2(model_size=model_size, models_dir="../output_dir/gpt2")
+            settings, params = load_gpt2(model_size=model_size, models_dir="../output_dir/gpt2")
+            LLM_CONFIG['qkv_bias'] = True # Since GPT2 OpenAI weights have this set to True
+            model = GPT2Model(LLM_CONFIG)
+            load_weights_into_gpt(model, params)
     model.eval()
     model.to(device)
 
@@ -172,7 +175,7 @@ if __name__ == "__main__":
 
     # loss plot
     epochs_tensor = torch.linspace(0, num_epochs, len(train_losses))
-    plot_values(epochs_tensor, tokens_seen, train_losses, val_losses)
+    plot_values(epochs_tensor, tokens_seen, train_losses, val_losses, output_dir=output_dir)
     print(50*"-")
 
     # Save model

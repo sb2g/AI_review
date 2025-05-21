@@ -11,13 +11,17 @@ import torch
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
 
-def calc_loss_batch(input_batch, target_batch, model, device):
+def calc_loss_batch(input_batch, target_batch, model, device, classifier=False):
     input_batch, target_batch = input_batch.to(device), target_batch.to(device)
-    logits = model(input_batch)
-    loss = torch.nn.functional.cross_entropy(logits.flatten(0, 1), target_batch.flatten())
+    if classifier:
+        logits = model(input_batch)[:, -1, :]  # Logits of last output token
+        loss = torch.nn.functional.cross_entropy(logits, target_batch)
+    else:
+        logits = model(input_batch)
+        loss = torch.nn.functional.cross_entropy(logits.flatten(0, 1), target_batch.flatten())
     return loss
 
-def calc_loss_loader(data_loader, model, device, num_batches=None):
+def calc_loss_loader(data_loader, model, device, num_batches=None, classifier=False):
     total_loss = 0.
     if len(data_loader) == 0:
         return float("nan")
@@ -27,7 +31,7 @@ def calc_loss_loader(data_loader, model, device, num_batches=None):
         num_batches = min(num_batches, len(data_loader))
     for i, (input_batch, target_batch) in enumerate(data_loader):
         if i < num_batches:
-            loss = calc_loss_batch(input_batch, target_batch, model, device)
+            loss = calc_loss_batch(input_batch, target_batch, model, device, classifier=classifier)
             total_loss += loss.item()
         else:
             break
@@ -56,7 +60,7 @@ def calc_accuracy_loader(data_loader, model, device, num_batches=None):
     return correct_predictions / num_examples
 
 
-def plot_values(epochs_seen, examples_seen, train_values, val_values, label="loss"):
+def plot_values(epochs_seen, examples_seen, train_values, val_values, label="loss", output_dir="../output_dir/"):
     fig, ax1 = plt.subplots(figsize=(5, 3))
 
     # Plot training and validation loss against epochs
@@ -74,7 +78,7 @@ def plot_values(epochs_seen, examples_seen, train_values, val_values, label="los
     ax2.set_xlabel("Examples seen")
 
     fig.tight_layout()  # Adjust layout to make room
-    plot_name = f"{label}-plot.pdf"
+    plot_name = os.path.join(output_dir, f"{label}-plot.png")
     print(f"Plot saved as {plot_name}")
     plt.savefig(plot_name)
     # plt.show()

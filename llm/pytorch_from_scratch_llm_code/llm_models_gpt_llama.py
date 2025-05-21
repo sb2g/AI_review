@@ -18,8 +18,9 @@ class GPT2TransformerBlock(nn.Module):
         super().__init__()
         din, dim, seq_len = cfg["emb_dim"], cfg["emb_dim"], cfg["context_length"]
         dropout, num_heads = cfg["drop_rate"], cfg["n_heads"]
-
-        self.att =  MHA2(din, dim, seq_len, dropout, num_heads)
+        bias = cfg['qkv_bias']
+        
+        self.att =  MHA2(din, dim, seq_len, dropout, num_heads, bias=bias)
         self.ff = FFN(dim)
         self.norm1 = LayerNorm(dim)
         self.norm2 = LayerNorm(dim)
@@ -84,6 +85,7 @@ class Llama3TransformerBlock(nn.Module):
         dropout, num_heads = 0.0, cfg["n_heads"]
         rope_base, rope_config, dtype = cfg["rope_base"], cfg["rope_freq"], cfg["dtype"]
         ffn_hidden_dim = cfg["hidden_dim"]
+        num_kv_groups = cfg['n_kv_groups']
         self.att =  GQARoPE(din, dim, seq_len, dropout, num_heads, num_kv_groups, bias=False, dtype=dtype, rope_base=rope_base, rope_config=rope_config)        
         self.ff = FFNSwiGLU(dim, ffn_hidden_dim)
         self.norm1 = RMSNorm(dim, eps=1e-5)

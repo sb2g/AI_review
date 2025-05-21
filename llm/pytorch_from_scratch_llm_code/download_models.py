@@ -12,6 +12,11 @@ import tensorflow as tf
 from tqdm import tqdm
 import torch
 
+from safetensors.torch import load_file
+from huggingface_hub import hf_hub_download
+from llm_configs_1 import *
+from llm_models_gpt_llama import GPT2Model, Llama3Model
+
 def download_file(url, destination, backup_url=None):
     def _attempt_download(download_url):
         with urllib.request.urlopen(download_url) as response:
@@ -94,7 +99,8 @@ def download_file(url, destination):
 """
 
 
-def download_and_load_gpt2(model_size, models_dir):
+def download_gpt2(model_size, models_dir):
+
     # Validate model size
     allowed_sizes = ("124M", "355M", "774M", "1558M")
     if model_size not in allowed_sizes:
@@ -109,6 +115,7 @@ def download_and_load_gpt2(model_size, models_dir):
         "model.ckpt.data-00000-of-00001", "model.ckpt.index",
         "model.ckpt.meta", "vocab.bpe"
     ]
+    print(f"Downloading GPT model size {model_size} to {model_dir}")
 
     # Download files
     os.makedirs(model_dir, exist_ok=True)
@@ -117,8 +124,16 @@ def download_and_load_gpt2(model_size, models_dir):
         backup_url = os.path.join(backup_base_url, model_size, filename)
         file_path = os.path.join(model_dir, filename)
         download_file(file_url, file_path, backup_url)
+    
+    print("Finished downloading")
+
+    # Load settings and params
+    #return load_gpt2(model_size, models_dir)
+    
 
 def load_gpt2(model_size, models_dir):
+
+    print(f"Retrieving parameters GPT2 model size {model_size}")
 
     # Validate model size
     allowed_sizes = ("124M", "355M", "774M", "1558M")
@@ -132,6 +147,8 @@ def load_gpt2(model_size, models_dir):
     tf_ckpt_path = tf.train.latest_checkpoint(model_dir)
     settings = json.load(open(os.path.join(model_dir, "hparams.json"), "r", encoding="utf-8"))
     params = load_gpt2_params_from_tf_ckpt(tf_ckpt_path, settings)
+
+    print("Finished retrieving")
 
     return settings, params
 
@@ -163,40 +180,52 @@ def load_gpt2_params_from_tf_ckpt(ckpt_path, settings):
 
     return params
 
-def assign(left, right):
+# def assign(left, right):
+#     if left.shape != right.shape:
+#         raise ValueError(f"Shape mismatch. Left: {left.shape}, Right: {right.shape}")
+#     return torch.nn.Parameter(torch.tensor(right))
+
+def assign(left, right, tensor_name="unknown"):
     if left.shape != right.shape:
-        raise ValueError(f"Shape mismatch. Left: {left.shape}, Right: {right.shape}")
-    return torch.nn.Parameter(torch.tensor(right))
+        raise ValueError(f"Shape mismatch in tensor '{tensor_name}'. Left: {left.shape}, Right: {right.shape}")
+
+    if isinstance(right, torch.Tensor):
+        return torch.nn.Parameter(right.clone().detach())
+    else:
+        return torch.nn.Parameter(torch.tensor(right))
 
 
 def load_weights_into_gpt(gpt, params):
+
+    print(f"Loading weights into GPT model")
+
     gpt.pos_emb.weight = assign(gpt.pos_emb.weight, params['wpe'])
     gpt.tok_emb.weight = assign(gpt.tok_emb.weight, params['wte'])
 
     for b in range(len(params["blocks"])):
         q_w, k_w, v_w = np.split(
             (params["blocks"][b]["attn"]["c_attn"])["w"], 3, axis=-1)
-        gpt.layers[b].att.W_query.weight = assign(
-            gpt.layers[b].att.W_query.weight, q_w.T)
-        gpt.layers[b].att.W_key.weight = assign(
-            gpt.layers[b].att.W_key.weight, k_w.T)
-        gpt.layers[b].att.W_value.weight = assign(
-            gpt.layers[b].att.W_value.weight, v_w.T)
+        gpt.layers[b].att.wq.weight = assign(
+            gpt.layers[b].att.wq.weight, q_w.T)
+        gpt.layers[b].att.wk.weight = assign(
+            gpt.layers[b].att.wk.weight, k_w.T)
+        gpt.layers[b].att.wv.weight = assign(
+            gpt.layers[b].att.wv.weight, v_w.T)
 
         q_b, k_b, v_b = np.split(
             (params["blocks"][b]["attn"]["c_attn"])["b"], 3, axis=-1)
-        gpt.layers[b].att.W_query.bias = assign(
-            gpt.layers[b].att.W_query.bias, q_b)
-        gpt.layers[b].att.W_key.bias = assign(
-            gpt.layers[b].att.W_key.bias, k_b)
-        gpt.layers[b].att.W_value.bias = assign(
-            gpt.layers[b].att.W_value.bias, v_b)
+        gpt.layers[b].att.wq.bias = assign(
+            gpt.layers[b].att.wq.bias, q_b)
+        gpt.layers[b].att.wk.bias = assign(
+            gpt.layers[b].att.wk.bias, k_b)
+        gpt.layers[b].att.wv.bias = assign(
+            gpt.layers[b].att.wv.bias, v_b)
 
-        gpt.layers[b].att.out_proj.weight = assign(
-            gpt.layers[b].att.out_proj.weight,
+        gpt.layers[b].att.proj.weight = assign(
+            gpt.layers[b].att.proj.weight,
             params["blocks"][b]["attn"]["c_proj"]["w"].T)
-        gpt.layers[b].att.out_proj.bias = assign(
-            gpt.layers[b].att.out_proj.bias,
+        gpt.layers[b].att.proj.bias = assign(
+            gpt.layers[b].att.proj.bias,
             params["blocks"][b]["attn"]["c_proj"]["b"])
 
         gpt.layers[b].ff.layers[0].weight = assign(
@@ -229,44 +258,94 @@ def load_weights_into_gpt(gpt, params):
     gpt.final_norm.shift = assign(gpt.final_norm.shift, params["b"])
     gpt.out_head.weight = assign(gpt.out_head.weight, params["wte"])
 
-def assign(left, right, tensor_name="unknown"):
-    if left.shape != right.shape:
-        raise ValueError(f"Shape mismatch in tensor '{tensor_name}'. Left: {left.shape}, Right: {right.shape}")
 
-    if isinstance(right, torch.Tensor):
-        return torch.nn.Parameter(right.clone().detach())
+def download_llama(model_size="1B", model_dir="../output_dir/Llama"):
+
+    print(f"Downloading Llama model size {model_size} to {model_dir}")
+
+    os.makedirs(model_dir, exist_ok=True)
+
+    if model_size == "1B":
+        weights_file = hf_hub_download(
+            repo_id=f"meta-llama/Llama-3.2-{model_size}-Instruct",
+            filename="model.safetensors",
+            local_dir=os.path.join(model_dir, f"Llama-3.2-{model_size}-Instruct")
+        )
+        print(f"weights_file: {weights_file}")
+        combined_weights = load_file(weights_file)
+
     else:
-        return torch.nn.Parameter(torch.tensor(right))
+        combined_weights = {}
+        for i in range(1, 3):
+            weights_file = hf_hub_download(
+                repo_id=f"meta-llama/Llama-3.2-{model_size}-Instruct",
+                filename=f"model-0000{i}-of-00002.safetensors",
+                local_dir=os.path.join(model_dir, f"Llama-3.2-{model_size}-Instruct")
+            )
+            print(f"weights_file: {weights_file}")
+            current_weights = load_file(weights_file)
+            combined_weights.update(current_weights)
+
+    print("Finished loading")
+
+    return combined_weights
+
+
+def load_llama(model_size="1B", model_dir="../output_dir/Llama"):
+
+    print(f"Loading Llama model size {model_size}")
+
+    if model_size == "1B":
+        filename="model.safetensors"
+        weights_file = os.path.join(model_dir, f"Llama-3.2-{model_size}-Instruct", filename)
+        print(f"weights_file: {weights_file}")
+        combined_weights = load_file(weights_file)
+
+    else:
+        combined_weights = {}
+        for i in range(1, 3):
+            filename="model-0000{i}-of-00002.safetensors"
+            weights_file = os.path.join(model_dir, f"Llama-3.2-{model_size}-Instruct", filename)
+            print(f"weights_file: {weights_file}")
+            current_weights = load_file(weights_file)
+            combined_weights.update(current_weights)
+
+    print("Finished loading")
+
+    return combined_weights
 
 
 def load_weights_into_llama(model, param_config, params):
+
+    print(f"Loading weights into Llama model")
+
     model.tok_emb.weight = assign(model.tok_emb.weight, params["model.embed_tokens.weight"], "model.embed_tokens.weight")
 
     for l in range(param_config["n_layers"]):
 
         # Load attention weights
-        model.layers[l].att.W_query.weight = assign(
-            model.layers[l].att.W_query.weight,
+        model.layers[l].att.wq.weight = assign(
+            model.layers[l].att.wq.weight,
             params[f"model.layers.{l}.self_attn.q_proj.weight"],
             f"model.layers.{l}.self_attn.q_proj.weight"
         )
-        model.layers[l].att.W_key.weight = assign(
-            model.layers[l].att.W_key.weight,
+        model.layers[l].att.wk.weight = assign(
+            model.layers[l].att.wk.weight,
             params[f"model.layers.{l}.self_attn.k_proj.weight"],
             f"model.layers.{l}.self_attn.k_proj.weight"
         )
-        model.layers[l].att.W_value.weight = assign(
-            model.layers[l].att.W_value.weight,
+        model.layers[l].att.wv.weight = assign(
+            model.layers[l].att.wv.weight,
             params[f"model.layers.{l}.self_attn.v_proj.weight"],
             f"model.layers.{l}.self_attn.v_proj.weight"
         )
-        model.layers[l].att.out_proj.weight = assign(
-            model.layers[l].att.out_proj.weight,
+        model.layers[l].att.proj.weight = assign(
+            model.layers[l].att.proj.weight,
             params[f"model.layers.{l}.self_attn.o_proj.weight"],
             f"model.layers.{l}.self_attn.o_proj.weight"
         )
-        model.layers[l].norm1.weight = assign(
-            model.layers[l].norm1.weight,
+        model.layers[l].norm1.scale = assign(
+            model.layers[l].norm1.scale,
             params[f"model.layers.{l}.input_layernorm.weight"],
             f"model.layers.{l}.input_layernorm.weight"
         )
@@ -287,14 +366,14 @@ def load_weights_into_llama(model, param_config, params):
             params[f"model.layers.{l}.mlp.down_proj.weight"],
             f"model.layers.{l}.mlp.down_proj.weight"
         )
-        model.layers[l].norm2.weight = assign(
-            model.layers[l].norm2.weight,
+        model.layers[l].norm2.scale = assign(
+            model.layers[l].norm2.scale,
             params[f"model.layers.{l}.post_attention_layernorm.weight"],
             f"model.layers.{l}.post_attention_layernorm.weight"
         )
 
     # Load output layer weights
-    model.final_norm.weight = assign(model.final_norm.weight, params["model.norm.weight"], "model.norm.weight")
+    model.final_norm.scale = assign(model.final_norm.scale, params["model.norm.weight"], "model.norm.weight")
 
     if "lm_head.weight" in params.keys():
         model.out_head.weight = assign(model.out_head.weight, params["lm_head.weight"], "lm_head.weight")
@@ -303,35 +382,44 @@ def load_weights_into_llama(model, param_config, params):
         print("Model uses weight tying.")
 
 
-
-from safetensors.torch import load_file
-from huggingface_hub import hf_hub_download
-
 if __name__ == "__main__":
 
-    if LLAMA_SIZE_STR == "1B":
-        weights_file = hf_hub_download(
-            repo_id=f"meta-llama/Llama-3.2-{LLAMA_SIZE_STR}-Instruct",
-            filename="model.safetensors",
-            local_dir=f"Llama-3.2-{LLAMA_SIZE_STR}-Instruct"
-        )
-        combined_weights = load_file(weights_file)
+    # GPT model
+    if 0:
+        
+        model_size = "124M"
+        
+        # Download model
+        if 0:
+            download_gpt2(model_size=model_size, models_dir="../output_dir/gpt2")
 
+        # Load weigths into model
+        if 1:
+            settings, params = load_gpt2(model_size=model_size, models_dir="../output_dir/gpt2")
+            LLM_CONFIG = GPT_CONFIG_124M
+            LLM_CONFIG['qkv_bias'] = True # Since GPT2 OpenAI weights have this set to True
+            model = GPT2Model(LLM_CONFIG)
+            load_weights_into_gpt(model, params)
+            print(f"Done loading weights")
 
-    else:
-        combined_weights = {}
-        for i in range(1, 3):
-            weights_file = hf_hub_download(
-                repo_id=f"meta-llama/Llama-3.2-{LLAMA_SIZE_STR}-Instruct",
-                filename=f"model-0000{i}-of-00002.safetensors",
-                local_dir=f"Llama-3.2-{LLAMA_SIZE_STR}-Instruct"
-            )
-            current_weights = load_file(weights_file)
-            combined_weights.update(current_weights)
+    # Llama models
+    if 1:
 
+        model_size="1B"
 
-    load_weights_into_llama(model, LLAMA32_CONFIG, combined_weights)
-    model.to(device)
-    del combined_weights  # free up memory
+        # Download model
+        if 0:
+            download_llama(model_size=model_size, models_dir="../output_dir/Llama")
 
-    print("Weight tying:", torch.equal(model.tok_emb.weight, model.out_head.weight))
+        # Load weigths into model
+        if 1:
+            combined_weights = load_llama(model_size="1B")
+            LLM_CONFIG = LLAMA32_CONFIG_1B
+            model = Llama3Model(LLM_CONFIG)
+            load_weights_into_llama(model, LLM_CONFIG, combined_weights)
+            print(f"Done loading weights")
+            #model.to(device)
+            del combined_weights  # free up memory
+
+            # Sanity check
+            print("Weight tying:", torch.equal(model.tok_emb.weight, model.out_head.weight))

@@ -1,0 +1,3 @@
+Downloading Llama model size 1B
+weights_file: Llama-3.2-1B-Instruct/model.safetensors
+Finished loading

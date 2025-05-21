@@ -98,7 +98,7 @@ def train_model_simple_multiple_data_files(model,
                         )
 
                 if global_step % save_ckpt_freq:
-                    file_name = os.path.join(f"model_pg_{global_step}.pth")
+                    file_name = os.path.join(output_dir, f"model_pg_{global_step}.pth")
                     torch.save(model.state_dict(), file_name)
                     print(f"Saved {file_name}")
 
@@ -286,7 +286,7 @@ if __name__ == "__main__":
 
     # Plot results
     epochs_tensor = torch.linspace(0, num_epochs, len(train_losses))
-    plot_values(epochs_tensor, tokens_seen, train_losses, val_losses, output_dir)
+    plot_values(epochs_tensor, tokens_seen, train_losses, val_losses, output_dir=output_dir)
     print(50*"-")
 
     # Save model

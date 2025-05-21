@@ -19,13 +19,25 @@
         - Use instruct LLM section of `download_data.py` to download dataset
         - The data will be located at ../data/instruction-data.json
 
+# Environment
+    - Create conda env
+        - `mlenv2`:  `conda env create -f environment_mlenv2.yml`
+        - `mlenv2c`: `conda env create -f environment_mlenv2c.yml` 
+
 # Pretrained models
+    - Use conda env `mlenv2c`
     - Use `download_models.py` code to download pretrained weights for GPT-2, Llama
 
 # High level code calls
-    - `CUDA_VISIBLE_DEVICES=<> python train_next_token.py`
-    - `CUDA_VISIBLE_DEVICES=<> python finetune_classifier.py`
-    - `CUDA_VISIBLE_DEVICES=<> python finetune_instruct_llm.py`
+    - Train next token prediction LLM
+        - Use conda env `mlenv2`
+        - `CUDA_VISIBLE_DEVICES=<> python train_next_token.py`  
+    - Finetune LLM to classify spam
+        - Use conda env `mlenv2` (Use conda env `mlenv2c` if using OpenAI weights instead of your own weights for GPT2 model )
+        - `CUDA_VISIBLE_DEVICES=<> python finetune_classifier.py`
+    - Finetune LLM to follow instructions
+        - Use conda env `mlenv2` (Use conda env `mlenv2c` if using OpenAI weights instead of your own weights for GPT2 model)
+        - `CUDA_VISIBLE_DEVICES=<> python finetune_instruct_llm.py`
 
 # Code structure
 

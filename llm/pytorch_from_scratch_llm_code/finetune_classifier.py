@@ -35,7 +35,7 @@ def train_classifier_simple(model,
 
         for input_batch, target_batch in train_loader:
             optimizer.zero_grad()  # Reset loss gradients from previous batch iteration
-            loss = calc_loss_batch(input_batch, target_batch, model, device)
+            loss = calc_loss_batch(input_batch, target_batch, model, device, classifier=True)
             loss.backward()  # Calculate loss gradients
             optimizer.step()  # Update model weights using loss gradients
             examples_seen += input_batch.shape[0]  # New: track examples instead of tokens
@@ -47,8 +47,8 @@ def train_classifier_simple(model,
             if global_step % eval_freq == 0:
                 model.eval()
                 with torch.no_grad():
-                    train_loss = calc_loss_loader(train_loader, model, device, num_batches=eval_num_batches)
-                    val_loss = calc_loss_loader(val_loader, model, device, num_batches=eval_num_batches)
+                    train_loss = calc_loss_loader(train_loader, model, device, num_batches=eval_num_batches, classifier=True)
+                    val_loss = calc_loss_loader(val_loader, model, device, num_batches=eval_num_batches, classifier=True)
                 model.train()
                 train_losses.append(train_loss)
                 val_losses.append(val_loss)
@@ -136,10 +136,13 @@ if __name__ == "__main__":
         model = GPT2Model(LLM_CONFIG)
     else:
         model_size = "124M"
-        #settings, params = download_and_load_gpt2(model_size=model_size, models_dir="../output_dir/gpt2")
-        settings, params = load_gpt2(model_size=model_size, models_dir="../output_dir/gpt2")
-        model = GPT2Model(LLM_CONFIG)
-        load_weights_into_gpt(model, params)
+        if 1:  
+            # Load from OpenAI weights
+            #settings, params = download_and_load_gpt2(model_size=model_size, models_dir="../output_dir/gpt2")
+            settings, params = load_gpt2(model_size=model_size, models_dir="../output_dir/gpt2")
+            LLM_CONFIG['qkv_bias'] = True # Since GPT2 OpenAI weights have this set to True
+            model = GPT2Model(LLM_CONFIG)
+            load_weights_into_gpt(model, params)
     model.eval()
     model.to(device)
 
@@ -184,12 +187,12 @@ if __name__ == "__main__":
     # loss plot
     epochs_tensor = torch.linspace(0, num_epochs, len(train_losses))
     examples_seen_tensor = torch.linspace(0, examples_seen, len(train_losses))
-    plot_values(epochs_tensor, examples_seen_tensor, train_losses, val_losses)
+    plot_values(epochs_tensor, examples_seen_tensor, train_losses, val_losses, output_dir=output_dir)
 
     # accuracy plot
     epochs_tensor = torch.linspace(0, num_epochs, len(train_accs))
     examples_seen_tensor = torch.linspace(0, examples_seen, len(train_accs))
-    plot_values(epochs_tensor, examples_seen_tensor, train_accs, val_accs, label="accuracy")
+    plot_values(epochs_tensor, examples_seen_tensor, train_accs, val_accs, label="accuracy", output_dir=output_dir)
 
     # Save model
     model_path =  os.path.join(output_dir, "model_spam_cls.pth")

@@ -1,0 +1,41 @@
+Using torchrun: world_size: 1, rank: 0
+Number of GPUs available: 2
+Platform system: Linux, rank: 0, world_size: 1
+Preparing toy dataset ... 
+X_train.shape: torch.Size([5, 2]), y_train.shape: torch.Size([5])
+X_test.shape: torch.Size([2, 2]), y_test.shape: torch.Size([2])
+After adding more tensors
+X_train.shape: torch.Size([20, 2]), y_train.shape: torch.Size([20])
+X_test.shape: torch.Size([8, 2]), y_test.shape: torch.Size([8])
+[GPU0] Epoch: 001/003 | Batchsize 002 | Train/Val Loss: 0.84
+[GPU0] Epoch: 001/003 | Batchsize 002 | Train/Val Loss: 0.49
+[GPU0] Epoch: 001/003 | Batchsize 002 | Train/Val Loss: 0.45
+[GPU0] Epoch: 001/003 | Batchsize 002 | Train/Val Loss: 0.04
+[GPU0] Epoch: 001/003 | Batchsize 002 | Train/Val Loss: 0.02
+[GPU0] Epoch: 001/003 | Batchsize 002 | Train/Val Loss: 0.02
+[GPU0] Epoch: 001/003 | Batchsize 002 | Train/Val Loss: 0.02
+[GPU0] Epoch: 001/003 | Batchsize 002 | Train/Val Loss: 0.01
+[GPU0] Epoch: 001/003 | Batchsize 002 | Train/Val Loss: 0.01
+[GPU0] Epoch: 001/003 | Batchsize 002 | Train/Val Loss: 0.00
+[GPU0] Epoch: 002/003 | Batchsize 002 | Train/Val Loss: 0.01
+[GPU0] Epoch: 002/003 | Batchsize 002 | Train/Val Loss: 0.00
+[GPU0] Epoch: 002/003 | Batchsize 002 | Train/Val Loss: 0.01
+[GPU0] Epoch: 002/003 | Batchsize 002 | Train/Val Loss: 0.00
+[GPU0] Epoch: 002/003 | Batchsize 002 | Train/Val Loss: 0.00
+[GPU0] Epoch: 002/003 | Batchsize 002 | Train/Val Loss: 0.00
+[GPU0] Epoch: 002/003 | Batchsize 002 | Train/Val Loss: 0.00
+[GPU0] Epoch: 002/003 | Batchsize 002 | Train/Val Loss: 0.00
+[GPU0] Epoch: 002/003 | Batchsize 002 | Train/Val Loss: 0.00
+[GPU0] Epoch: 002/003 | Batchsize 002 | Train/Val Loss: 0.00
+[GPU0] Epoch: 003/003 | Batchsize 002 | Train/Val Loss: 0.00
+[GPU0] Epoch: 003/003 | Batchsize 002 | Train/Val Loss: 0.00
+[GPU0] Epoch: 003/003 | Batchsize 002 | Train/Val Loss: 0.00
+[GPU0] Epoch: 003/003 | Batchsize 002 | Train/Val Loss: 0.00
+[GPU0] Epoch: 003/003 | Batchsize 002 | Train/Val Loss: 0.00
+[GPU0] Epoch: 003/003 | Batchsize 002 | Train/Val Loss: 0.00
+[GPU0] Epoch: 003/003 | Batchsize 002 | Train/Val Loss: 0.00
+[GPU0] Epoch: 003/003 | Batchsize 002 | Train/Val Loss: 0.00
+[GPU0] Epoch: 003/003 | Batchsize 002 | Train/Val Loss: 0.00
+[GPU0] Epoch: 003/003 | Batchsize 002 | Train/Val Loss: 0.00
+[GPU0] Training accuracy 1.0
+[GPU0] Test accuracy 1.0

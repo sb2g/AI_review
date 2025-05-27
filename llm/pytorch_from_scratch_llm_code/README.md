@@ -25,7 +25,7 @@
         - `mlenv2c`: `conda env create -f environment_mlenv2c.yml` 
 
 # Pretrained models
-    - Use conda env `mlenv2c`
+    - Use conda env `mlenv2c` (Has tensorflow)
     - Use `download_models.py` code to download pretrained weights for GPT-2, Llama
 
 # High level code calls

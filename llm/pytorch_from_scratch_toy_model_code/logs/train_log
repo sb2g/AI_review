@@ -1,0 +1,38 @@
+Preparing toy dataset ... 
+X_train.shape: torch.Size([5, 2]), y_train.shape: torch.Size([5])
+X_test.shape: torch.Size([2, 2]), y_test.shape: torch.Size([2])
+After adding more tensors
+X_train.shape: torch.Size([20, 2]), y_train.shape: torch.Size([20])
+X_test.shape: torch.Size([8, 2]), y_test.shape: torch.Size([8])
+Epoch: 001/003 | Batchsize 002 | Train/Val Loss: 1.16
+Epoch: 001/003 | Batchsize 002 | Train/Val Loss: 0.06
+Epoch: 001/003 | Batchsize 002 | Train/Val Loss: 0.92
+Epoch: 001/003 | Batchsize 002 | Train/Val Loss: 0.39
+Epoch: 001/003 | Batchsize 002 | Train/Val Loss: 0.12
+Epoch: 001/003 | Batchsize 002 | Train/Val Loss: 0.02
+Epoch: 001/003 | Batchsize 002 | Train/Val Loss: 0.00
+Epoch: 001/003 | Batchsize 002 | Train/Val Loss: 0.01
+Epoch: 001/003 | Batchsize 002 | Train/Val Loss: 0.01
+Epoch: 001/003 | Batchsize 002 | Train/Val Loss: 0.01
+Epoch: 002/003 | Batchsize 002 | Train/Val Loss: 0.00
+Epoch: 002/003 | Batchsize 002 | Train/Val Loss: 0.01
+Epoch: 002/003 | Batchsize 002 | Train/Val Loss: 0.01
+Epoch: 002/003 | Batchsize 002 | Train/Val Loss: 0.00
+Epoch: 002/003 | Batchsize 002 | Train/Val Loss: 0.00
+Epoch: 002/003 | Batchsize 002 | Train/Val Loss: 0.00
+Epoch: 002/003 | Batchsize 002 | Train/Val Loss: 0.00
+Epoch: 002/003 | Batchsize 002 | Train/Val Loss: 0.00
+Epoch: 002/003 | Batchsize 002 | Train/Val Loss: 0.00
+Epoch: 002/003 | Batchsize 002 | Train/Val Loss: 0.00
+Epoch: 003/003 | Batchsize 002 | Train/Val Loss: 0.00
+Epoch: 003/003 | Batchsize 002 | Train/Val Loss: 0.00
+Epoch: 003/003 | Batchsize 002 | Train/Val Loss: 0.00
+Epoch: 003/003 | Batchsize 002 | Train/Val Loss: 0.00
+Epoch: 003/003 | Batchsize 002 | Train/Val Loss: 0.00
+Epoch: 003/003 | Batchsize 002 | Train/Val Loss: 0.00
+Epoch: 003/003 | Batchsize 002 | Train/Val Loss: 0.00
+Epoch: 003/003 | Batchsize 002 | Train/Val Loss: 0.00
+Epoch: 003/003 | Batchsize 002 | Train/Val Loss: 0.00
+Epoch: 003/003 | Batchsize 002 | Train/Val Loss: 0.00
+Training accuracy 1.0
+Test accuracy 1.0

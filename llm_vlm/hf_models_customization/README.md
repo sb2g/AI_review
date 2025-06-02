@@ -322,6 +322,7 @@
 
 # Preprocessors
 - Tokenizers
+    - Convert text into subwords (tokens) & convert them to tensors (inputs ids to model). Also returns attention mask to tell which tokens should be attended.
 - Image processors
 - Video processors
 - Backbones

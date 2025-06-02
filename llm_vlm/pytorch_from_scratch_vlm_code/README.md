@@ -2,6 +2,14 @@
 - This directory talks about Vision Transformers (ViTs) & Vision Language Models (VLMs)
 - It also shows how to inherit and locally modify Huggingface transformers models to build custom models/losses in Pytorch and train them
 
+# Note on Attention
+- What are the q, k, v in different architectures usually?
+    - In self attention: 
+        - q, k, v all come from the same input
+    - In cross attention (e.g. encoder-decoder models):
+        - q comes from decoder
+        - k, v come from encoder
+
 # Vision Language Models (VLMs)
 - Key components/hyperparameters of VLMs
     - Vision Encoder / Vision Transformers (ViTs)

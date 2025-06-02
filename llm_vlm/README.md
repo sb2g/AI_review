@@ -7,7 +7,7 @@
 # Key directoies here
     - `hf_api_notebooks`: All the notebooks on how to use Huggingface library or APIs
     - `pytorch_from_scratch_notebooks`: All the notebooks on how to use Pytorch from scratch to define & train LLMs
-    - `pytorch_from_scratch_llm_code`: All the code organized in modular form
+    - `pytorch_from_scratch_llm_code`: All the LLM code organized in modular form
     - `misc_notebooks`: Miscellaneous notebooks
     - `data`: Datasets are to be stored here. (Omitted large files to avoid git repo bloat)
     - 'output_dir`: Models & training outputs are saved here. (Omitted from checkin to avoid git repo bloat)

@@ -49998,3 +49998,10 @@ Ep 1 (Step 49000): Train loss 2.900, Val loss 4.084
 Every effort moves you. You can’t help it.”  “I don’t know what you mean,” said the colonel. “I don’t know what you mean.”  “
 Ep 1 (Step 049001): Batch train loss 3.374
 Ep 1 (Step 049002): Batch train loss 3.414
+....
+
+Ep 1 (Step 614659): Batch train loss 2.812
+Saved model_pg_614659.pth
+Book processed 1h 12m 29s
+Total time elapsed 42h 56m 13s
+ETA for remaining books: 0h 0m 0s

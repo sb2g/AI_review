@@ -323,10 +323,19 @@
 # Preprocessors
 - Tokenizers
     - Convert text into subwords (tokens) & convert them to tensors (inputs ids to model). Also returns attention mask to tell which tokens should be attended.
+    - Some import
 - Image processors
+    - Image processors converts images into pixel values, tensors that represent image colors and size. The pixel values are inputs to a vision model. To ensure a pretrained model receives the correct input, an image processor can perform the following operations to make sure an image is exactly like the images a model was pretrained on.
+        - center_crop() to resize an image
+        - normalize() or rescale() pixel values
 - Video processors
+    - A Video Processor is a utility responsible for preparing input features for video models, as well as handling the post-processing of their outputs. It provides transformations such as resizing, normalization, and conversion into PyTorch.
+    - Currently, if using base image processor for videos, it processes video data by treating each frame as an individual image and applying transformations frame-by-frame. While functional, this approach is not highly efficient. Using AutoVideoProcessor allows us to take advantage of fast video processors, leveraging the torchvision library. Fast processors handle the whole batch of videos at once, without iterating over each video or frame. These updates introduce GPU acceleration and significantly enhance processing speed, especially for tasks requiring high throughput.
 - Backbones
+    - Higher-level computer visions tasks, such as object detection or image segmentation, use several models together to generate a prediction. A separate model is used for the backbone, neck, and head. The backbone extracts useful features from an input image into a feature map, the neck combines and processes the feature maps, and the head uses them to make a prediction.
 - Feature extractors
+    - Feature extractors preprocess audio data into the correct format for a given model. It takes the raw audio signal and converts it into a tensor that can be fed to a model. The tensor shape depends on the model, but the feature extractor will correctly preprocess the audio data for you given the model you’re using. Feature extractors also include methods for padding, truncation, and resampling.
+    - Pass the audio signal, typically stored in array, to the feature extractor and set the sampling_rate parameter to the pretrained audio models sampling rate. It is important the sampling rate of the audio data matches the sampling rate of the data a pretrained audio model was trained on.
 - Processors
 
 # References

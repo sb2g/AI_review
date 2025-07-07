@@ -1,3 +1,7 @@
+# Overview
+- This directory has my experiments after cloning Aria Large VLM model from https://github.com/rhymes-ai/Aria/tree/main
+- For detailed instructions, follow README of Aria directory directly, but here are my instructions in short
+
 # Env in short
 ```
 python -m venv venv3a

@@ -1,6 +1,11 @@
 # Overview:
 - This directory talks about Vision Transformers (ViTs) & Vision Language Models (VLMs)
-- It also shows how to inherit and locally modify Huggingface transformers models to build custom models/losses in Pytorch and train them
+- It shows 2 approaches:
+    - Writing a model from scratch in Pytorch. 
+        - This is shown in "smallvlm_nanovlm_model"
+    - How to inherit and locally modify Huggingface transformers models to build custom models/losses in Pytorch and train them. 
+        - This is shown in "largevlm_aria_model"
+        - README_customize_hf_models.md" goes over some of details on this topic.
 
 # Note on Attention
 - What are the q, k, v in different architectures usually?

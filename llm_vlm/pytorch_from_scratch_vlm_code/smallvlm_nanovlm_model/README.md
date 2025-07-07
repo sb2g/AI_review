@@ -1,6 +1,6 @@
 # Overview
-- This directory has my experiments after cloning nanoVLM from Huggingface https://github.com/huggingface/nanoVLM
-- For detailed instructions, follow README of nanoVLM directly, but here are my instructions in short
+- This directory has my experiments after cloning nanoVLM from https://github.com/huggingface/nanoVLM
+- For detailed instructions, follow README of nanoVLM directory directly, but here are my instructions in short
 
 # Environment
 - Use environment.yml file to setup the conda env

@@ -1,0 +1,239 @@
+`grouped_gemm` is not installed, using sequential GEMM, which is slower.
+projector CrossAttention: embed_dim: 1152, kv_dim: 1152
+projector FFN: embed_dim: 1152, ff_dim: 2560
+
+Loading checkpoint shards:   0%|          | 0/12 [00:00<?, ?it/s]
+Loading checkpoint shards:   8%|▊         | 1/12 [00:01<00:12,  1.12s/it]
+Loading checkpoint shards:  17%|█▋        | 2/12 [00:02<00:10,  1.05s/it]
+Loading checkpoint shards:  25%|██▌       | 3/12 [00:03<00:08,  1.03it/s]
+Loading checkpoint shards:  33%|███▎      | 4/12 [00:03<00:07,  1.05it/s]
+Loading checkpoint shards:  42%|████▏     | 5/12 [00:04<00:06,  1.08it/s]
+Loading checkpoint shards:  50%|█████     | 6/12 [00:05<00:05,  1.09it/s]
+Loading checkpoint shards:  58%|█████▊    | 7/12 [00:06<00:04,  1.13it/s]
+Loading checkpoint shards:  67%|██████▋   | 8/12 [00:07<00:03,  1.08it/s]
+Loading checkpoint shards:  75%|███████▌  | 9/12 [00:08<00:02,  1.09it/s]
+Loading checkpoint shards:  83%|████████▎ | 10/12 [00:09<00:01,  1.10it/s]
+Loading checkpoint shards:  92%|█████████▏| 11/12 [00:10<00:00,  1.11it/s]
+Loading checkpoint shards: 100%|██████████| 12/12 [00:10<00:00,  1.27it/s]
+Loading checkpoint shards: 100%|██████████| 12/12 [00:10<00:00,  1.12it/s]
+/home/user/Aria/venva3/lib/python3.10/site-packages/peft/tuners/lora/layer.py:95: UserWarning: Unsupported layer type '<class 'aria.model.moe_lm.GroupedGEMM'>' encountered, proceed at your own risk.
+  warnings.warn(
+
+  0%|          | 0/4 [00:00<?, ?it/s]
+100%|██████████| 4/4 [00:00<00:00, 44384.17it/s]
+
+Processing batches:   0%|          | 0/1 [00:00<?, ?it/s]batch: [{'messages': [{'content': [{'text': None, 'type': 'video'}, {'text': "how do the two man play the instrument?\nA. roll the handle\nB. tap their feet\nC. strum the string\nD. hit with sticks\nE. pat with hand\n Answer with the option's letter from the given choices directly.", 'type': 'text'}], 'role': 'user'}], 'video': {'path': 'datasets/nextqa/./NExTVideo/1106/4010069381.mp4', 'num_frames': 8}, 'gt': 'A', 'index2ans': {'A': 'roll the handle', 'B': 'tap their feet', 'C': 'strum the string', 'D': 'hit with sticks', 'E': 'pat with hand'}, 'all_choices': ['A', 'B', 'C', 'D', 'E']}, {'messages': [{'content': [{'text': None, 'type': 'video'}, {'text': "why did the boy pick up one present from the group of them and move to the sofa?\nA. share with the girl\nB. approach lady sitting there\nC. unwrap it\nD. playing with toy train\nE. gesture something\n Answer with the option's letter from the given choices directly.", 'type': 'text'}], 'role': 'user'}], 'video': {'path': 'datasets/nextqa/./NExTVideo/1104/4882821564.mp4', 'num_frames': 8}, 'gt': 'C', 'index2ans': {'A': 'share with the girl', 'B': 'approach lady sitting there', 'C': 'unwrap it', 'D': 'playing with toy train', 'E': 'gesture something'}, 'all_choices': ['A', 'B', 'C', 'D', 'E']}, {'messages': [{'content': [{'text': None, 'type': 'video'}, {'text': "how does the man cycling try to sell the watch to the man in the trishaw?\nA. give him catalogue\nB. show him a video\nC. show him the watch\nD. dismount his bicycle\nE. give him the watch strap\n Answer with the option's letter from the given choices directly.", 'type': 'text'}], 'role': 'user'}], 'video': {'path': 'datasets/nextqa/./NExTVideo/0063/2435100235.mp4', 'num_frames': 8}, 'gt': 'C', 'index2ans': {'A': 'give him catalogue', 'B': 'show him a video', 'C': 'show him the watch', 'D': 'dismount his bicycle', 'E': 'give him the watch strap'}, 'all_choices': ['A', 'B', 'C', 'D', 'E']}, {'messages': [{'content': [{'text': None, 'type': 'video'}, {'text': "what does the white dog do after going to the cushion?\nA. drink again\nB. shake its body\nC. smells the black dog\nD. wagging tail\nE. touch lady in blue stripes\n Answer with the option's letter from the given choices directly.", 'type': 'text'}], 'role': 'user'}], 'video': {'path': 'datasets/nextqa/./NExTVideo/0033/2834146886.mp4', 'num_frames': 8}, 'gt': 'C', 'index2ans': {'A': 'drink again', 'B': 'shake its body', 'C': 'smells the black dog', 'D': 'wagging tail', 'E': 'touch lady in blue stripes'}, 'all_choices': ['A', 'B', 'C', 'D', 'E']}]
+messages: [[{'content': [{'text': None, 'type': 'image'}, {'text': None, 'type': 'image'}, {'text': None, 'type': 'image'}, {'text': None, 'type': 'image'}, {'text': None, 'type': 'image'}, {'text': None, 'type': 'image'}, {'text': None, 'type': 'image'}, {'text': None, 'type': 'image'}, {'text': "how do the two man play the instrument?\nA. roll the handle\nB. tap their feet\nC. strum the string\nD. hit with sticks\nE. pat with hand\n Answer with the option's letter from the given choices directly.", 'type': 'text'}], 'role': 'user'}], [{'content': [{'text': None, 'type': 'image'}, {'text': None, 'type': 'image'}, {'text': None, 'type': 'image'}, {'text': None, 'type': 'image'}, {'text': None, 'type': 'image'}, {'text': None, 'type': 'image'}, {'text': None, 'type': 'image'}, {'text': None, 'type': 'image'}, {'text': "why did the boy pick up one present from the group of them and move to the sofa?\nA. share with the girl\nB. approach lady sitting there\nC. unwrap it\nD. playing with toy train\nE. gesture something\n Answer with the option's letter from the given choices directly.", 'type': 'text'}], 'role': 'user'}], [{'content': [{'text': None, 'type': 'image'}, {'text': None, 'type': 'image'}, {'text': None, 'type': 'image'}, {'text': None, 'type': 'image'}, {'text': None, 'type': 'image'}, {'text': None, 'type': 'image'}, {'text': None, 'type': 'image'}, {'text': None, 'type': 'image'}, {'text': "how does the man cycling try to sell the watch to the man in the trishaw?\nA. give him catalogue\nB. show him a video\nC. show him the watch\nD. dismount his bicycle\nE. give him the watch strap\n Answer with the option's letter from the given choices directly.", 'type': 'text'}], 'role': 'user'}], [{'content': [{'text': None, 'type': 'image'}, {'text': None, 'type': 'image'}, {'text': None, 'type': 'image'}, {'text': None, 'type': 'image'}, {'text': None, 'type': 'image'}, {'text': None, 'type': 'image'}, {'text': None, 'type': 'image'}, {'text': None, 'type': 'image'}, {'text': "what does the white dog do after going to the cushion?\nA. drink again\nB. shake its body\nC. smells the black dog\nD. wagging tail\nE. touch lady in blue stripes\n Answer with the option's letter from the given choices directly.", 'type': 'text'}], 'role': 'user'}]]
+texts: ["<|im_start|>user\n<fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix>how do the two man play the instrument?\nA. roll the handle\nB. tap their feet\nC. strum the string\nD. hit with sticks\nE. pat with hand\n Answer with the option's letter from the given choices directly.<|im_end|>\n<|im_start|>assistant\n", "<|im_start|>user\n<fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix>why did the boy pick up one present from the group of them and move to the sofa?\nA. share with the girl\nB. approach lady sitting there\nC. unwrap it\nD. playing with toy train\nE. gesture something\n Answer with the option's letter from the given choices directly.<|im_end|>\n<|im_start|>assistant\n", "<|im_start|>user\n<fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix>how does the man cycling try to sell the watch to the man in the trishaw?\nA. give him catalogue\nB. show him a video\nC. show him the watch\nD. dismount his bicycle\nE. give him the watch strap\n Answer with the option's letter from the given choices directly.<|im_end|>\n<|im_start|>assistant\n", "<|im_start|>user\n<fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix>what does the white dog do after going to the cushion?\nA. drink again\nB. shake its body\nC. smells the black dog\nD. wagging tail\nE. touch lady in blue stripes\n Answer with the option's letter from the given choices directly.<|im_end|>\n<|im_start|>assistant\n"]
+vision_processor: image.size: (640, 480), split_image: False, max_size: 980
+vision_processor: img_padded.shape: torch.Size([3, 980, 980])
+vision_processor: image.size: (640, 480), split_image: False, max_size: 980
+vision_processor: img_padded.shape: torch.Size([3, 980, 980])
+vision_processor: image.size: (640, 480), split_image: False, max_size: 980
+vision_processor: img_padded.shape: torch.Size([3, 980, 980])
+vision_processor: image.size: (640, 480), split_image: False, max_size: 980
+vision_processor: img_padded.shape: torch.Size([3, 980, 980])
+vision_processor: image.size: (640, 480), split_image: False, max_size: 980
+vision_processor: img_padded.shape: torch.Size([3, 980, 980])
+vision_processor: image.size: (640, 480), split_image: False, max_size: 980
+vision_processor: img_padded.shape: torch.Size([3, 980, 980])
+vision_processor: image.size: (640, 480), split_image: False, max_size: 980
+vision_processor: img_padded.shape: torch.Size([3, 980, 980])
+vision_processor: image.size: (640, 480), split_image: False, max_size: 980
+vision_processor: img_padded.shape: torch.Size([3, 980, 980])
+/home/user/Aria/examples/nextqa/evaluation.py:93: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.inference_mode(), torch.cuda.amp.autocast(dtype=torch.bfloat16):
+Starting from v4.46, the `logits` model output will have the same type as the model (except at train time, where it will always be FP32)
+
+Processing batches: 100%|██████████| 1/1 [00:09<00:00,  9.61s/it]vision_processor: image.size: (640, 480), split_image: False, max_size: 980
+vision_processor: img_padded.shape: torch.Size([3, 980, 980])
+vision_processor: image.size: (640, 480), split_image: False, max_size: 980
+vision_processor: img_padded.shape: torch.Size([3, 980, 980])
+vision_processor: image.size: (640, 480), split_image: False, max_size: 980
+vision_processor: img_padded.shape: torch.Size([3, 980, 980])
+vision_processor: image.size: (640, 480), split_image: False, max_size: 980
+vision_processor: img_padded.shape: torch.Size([3, 980, 980])
+vision_processor: image.size: (640, 480), split_image: False, max_size: 980
+vision_processor: img_padded.shape: torch.Size([3, 980, 980])
+vision_processor: image.size: (640, 480), split_image: False, max_size: 980
+vision_processor: img_padded.shape: torch.Size([3, 980, 980])
+vision_processor: image.size: (640, 480), split_image: False, max_size: 980
+vision_processor: img_padded.shape: torch.Size([3, 980, 980])
+vision_processor: image.size: (640, 480), split_image: False, max_size: 980
+vision_processor: img_padded.shape: torch.Size([3, 980, 980])
+vision_processor: image.size: (640, 480), split_image: False, max_size: 980
+vision_processor: img_padded.shape: torch.Size([3, 980, 980])
+vision_processor: image.size: (640, 480), split_image: False, max_size: 980
+vision_processor: img_padded.shape: torch.Size([3, 980, 980])
+vision_processor: image.size: (640, 480), split_image: False, max_size: 980
+vision_processor: img_padded.shape: torch.Size([3, 980, 980])
+vision_processor: image.size: (640, 480), split_image: False, max_size: 980
+vision_processor: img_padded.shape: torch.Size([3, 980, 980])
+vision_processor: image.size: (640, 480), split_image: False, max_size: 980
+vision_processor: img_padded.shape: torch.Size([3, 980, 980])
+vision_processor: image.size: (640, 480), split_image: False, max_size: 980
+vision_processor: img_padded.shape: torch.Size([3, 980, 980])
+vision_processor: image.size: (640, 480), split_image: False, max_size: 980
+vision_processor: img_padded.shape: torch.Size([3, 980, 980])
+vision_processor: image.size: (640, 480), split_image: False, max_size: 980
+vision_processor: img_padded.shape: torch.Size([3, 980, 980])
+vision_processor: image.size: (496, 370), split_image: False, max_size: 980
+vision_processor: img_padded.shape: torch.Size([3, 980, 980])
+vision_processor: image.size: (496, 370), split_image: False, max_size: 980
+vision_processor: img_padded.shape: torch.Size([3, 980, 980])
+vision_processor: image.size: (496, 370), split_image: False, max_size: 980
+vision_processor: img_padded.shape: torch.Size([3, 980, 980])
+vision_processor: image.size: (496, 370), split_image: False, max_size: 980
+vision_processor: img_padded.shape: torch.Size([3, 980, 980])
+vision_processor: image.size: (496, 370), split_image: False, max_size: 980
+vision_processor: img_padded.shape: torch.Size([3, 980, 980])
+vision_processor: image.size: (496, 370), split_image: False, max_size: 980
+vision_processor: img_padded.shape: torch.Size([3, 980, 980])
+vision_processor: image.size: (496, 370), split_image: False, max_size: 980
+vision_processor: img_padded.shape: torch.Size([3, 980, 980])
+vision_processor: image.size: (496, 370), split_image: False, max_size: 980
+vision_processor: img_padded.shape: torch.Size([3, 980, 980])
+
+Processing batches: 100%|██████████| 1/1 [00:09<00:00,  9.68s/it]
+--> Prompt: input_ids.shape: torch.Size([4, 2159]), inputs_embeds.shape: torch.Size([4, 2159, 2560])
+input_ids: tensor([[    2,     2,     2,  ...,  1155, 27030,   109],
+        [    2,     2,     2,  ...,  1155, 27030,   109],
+        [93532, 93653,   944,  ...,  1155, 27030,   109],
+        [    2,     2,     2,  ...,  1155, 27030,   109]], device='cuda:0')
+--> VT: pixel_values.shape: torch.Size([32, 3, 980, 980]), pixel_mask.shape: torch.Size([32, 980, 980])
+image_outputs.last_hidden_state.shape: torch.Size([32, 4900, 1152]), image_attn_mask.shape: torch.Size([32, 4900])
+projector: x.shape: torch.Size([32, 4900, 1152]), queries.shape: torch.Size([32, 256, 1152]), query_num: 256
+projector: attn_mask.shape: torch.Size([512, 256, 4900])
+projector CrossAttention: hidden_states.shape: torch.Size([32, 256, 1152]), query.shape: torch.Size([256, 32, 1152])
+projector CrossAttention: x.shape: torch.Size([32, 4900, 1152]), key.shape: torch.Size([4900, 32, 1152]), value.shape: torch.Size([4900, 32, 1152]), attn_mask.shape: torch.Size([512, 256, 4900])
+projector CrossAttention: attn_output.shape torch.Size([256, 32, 1152])
+projector CrossAttention: after permute: attn_output.shape: torch.Size([32, 256, 1152])
+projector CrossAttention: after linear: attn_output.shape: torch.Size([32, 256, 1152])
+projector: attention_out.shape: torch.Size([32, 256, 1152])
+projector: out.shape: torch.Size([32, 256, 2560])
+--> Proj: selected_image_feature.shape: torch.Size([32, 4900, 1152]), image_attn_mask.shape: torch.Size([32, 4900]), image_features.shape: torch.Size([32, 256, 2560])
+--> Merge: n_image_tokens: 8192 (self.config.image_token_index: 9), special_image_mask.shape: torch.Size([4, 2159, 2560]), inputs_embeds.shape: torch.Size([4, 2159, 2560])
+--> LM: logits.shape: torch.Size([4, 1, 100352])
+--> Prompt: input_ids.shape: torch.Size([4, 1]), inputs_embeds.shape: torch.Size([4, 1, 2560])
+input_ids: tensor([[93395],
+        [93395],
+        [93395],
+        [93395]], device='cuda:0')
+--> LM: logits.shape: torch.Size([4, 1, 100352])
+--> Prompt: input_ids.shape: torch.Size([4, 1]), inputs_embeds.shape: torch.Size([4, 1, 2560])
+input_ids: tensor([[93347],
+        [93347],
+        [93347],
+        [93347]], device='cuda:0')
+--> LM: logits.shape: torch.Size([4, 1, 100352])
+--> Prompt: input_ids.shape: torch.Size([4, 1]), inputs_embeds.shape: torch.Size([4, 1, 2560])
+input_ids: tensor([[1565],
+        [ 947],
+        [2898],
+        [2531]], device='cuda:0')
+--> LM: logits.shape: torch.Size([4, 1, 100352])
+--> Prompt: input_ids.shape: torch.Size([4, 1]), inputs_embeds.shape: torch.Size([4, 1, 2560])
+input_ids: tensor([[ 1013],
+        [42082],
+        [ 2277],
+        [16020]], device='cuda:0')
+--> LM: logits.shape: torch.Size([4, 1, 100352])
+--> Prompt: input_ids.shape: torch.Size([4, 1]), inputs_embeds.shape: torch.Size([4, 1, 2560])
+input_ids: tensor([[ 901],
+        [1074],
+        [ 901],
+        [ 901]], device='cuda:0')
+--> LM: logits.shape: torch.Size([4, 1, 100352])
+--> Prompt: input_ids.shape: torch.Size([4, 1]), inputs_embeds.shape: torch.Size([4, 1, 2560])
+input_ids: tensor([[ 6869],
+        [93532],
+        [ 6322],
+        [ 6704]], device='cuda:0')
+--> LM: logits.shape: torch.Size([4, 1, 100352])
+--> Prompt: input_ids.shape: torch.Size([4, 1]), inputs_embeds.shape: torch.Size([4, 1, 2560])
+input_ids: tensor([[93532],
+        [93653],
+        [93532],
+        [14065]], device='cuda:0')
+--> LM: logits.shape: torch.Size([4, 1, 100352])
+--> Prompt: input_ids.shape: torch.Size([4, 1]), inputs_embeds.shape: torch.Size([4, 1, 2560])
+input_ids: tensor([[93653],
+        [  944],
+        [93653],
+        [93532]], device='cuda:0')
+--> LM: logits.shape: torch.Size([4, 1, 100352])
+--> Prompt: input_ids.shape: torch.Size([4, 1]), inputs_embeds.shape: torch.Size([4, 1, 2560])
+input_ids: tensor([[  944],
+        [93421],
+        [  944],
+        [93653]], device='cuda:0')
+--> LM: logits.shape: torch.Size([4, 1, 100352])
+--> Prompt: input_ids.shape: torch.Size([4, 1]), inputs_embeds.shape: torch.Size([4, 1, 2560])
+input_ids: tensor([[93421],
+        [ 1019],
+        [93421],
+        [  944]], device='cuda:0')
+--> LM: logits.shape: torch.Size([4, 1, 100352])
+--> Prompt: input_ids.shape: torch.Size([4, 1]), inputs_embeds.shape: torch.Size([4, 1, 2560])
+input_ids: tensor([[ 1019],
+        [93653],
+        [ 1019],
+        [93421]], device='cuda:0')
+--> LM: logits.shape: torch.Size([4, 1, 100352])
+--> Prompt: input_ids.shape: torch.Size([4, 1]), inputs_embeds.shape: torch.Size([4, 1, 2560])
+input_ids: tensor([[93653],
+        [93519],
+        [93653],
+        [ 1019]], device='cuda:0')
+--> LM: logits.shape: torch.Size([4, 1, 100352])
+--> Prompt: input_ids.shape: torch.Size([4, 1]), inputs_embeds.shape: torch.Size([4, 1, 2560])
+input_ids: tensor([[93519],
+        [    2],
+        [93519],
+        [93653]], device='cuda:0')
+--> LM: logits.shape: torch.Size([4, 1, 100352])
+i: 0, prompt: <|im_start|>user
+<fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix>how do the two man play the instrument?
+A. roll the handle
+B. tap their feet
+C. strum the string
+D. hit with sticks
+E. pat with hand
+ Answer with the option's letter from the given choices directly.<|im_end|>
+<|im_start|>assistant
+
+output_text: C. strum the string
+i: 1, prompt: <|im_start|>user
+<fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix>why did the boy pick up one present from the group of them and move to the sofa?
+A. share with the girl
+B. approach lady sitting there
+C. unwrap it
+D. playing with toy train
+E. gesture something
+ Answer with the option's letter from the given choices directly.<|im_end|>
+<|im_start|>assistant
+
+output_text: C. unwrap it
+i: 2, prompt: <|im_start|>user
+<fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix>how does the man cycling try to sell the watch to the man in the trishaw?
+A. give him catalogue
+B. show him a video
+C. show him the watch
+D. dismount his bicycle
+E. give him the watch strap
+ Answer with the option's letter from the given choices directly.<|im_end|>
+<|im_start|>assistant
+
+output_text: C. show him the watch
+i: 3, prompt: <|im_start|>user
+<fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix><fim_prefix><|img|><fim_suffix>what does the white dog do after going to the cushion?
+A. drink again
+B. shake its body
+C. smells the black dog
+D. wagging tail
+E. touch lady in blue stripes
+ Answer with the option's letter from the given choices directly.<|im_end|>
+<|im_start|>assistant
+
+output_text: C. smells the black dog
+{'acc': 0.75}

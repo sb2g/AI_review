@@ -1,0 +1,1 @@
+accelerate launch --config_file recipes/accelerate_configs/zero3_offload.yaml aria/train.py --config examples/nextqa/config_full.yaml --output_dir outputs_full/  &> logs/train_log_full
